@@ -5,15 +5,15 @@ import ru.etysoft.dira.updates.Update;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdatesPool {
+public class RoomUpdatesPool {
 
     private List<Update> updates = new ArrayList<>();
     private List<ClientHandlerContract> connectedClients = new ArrayList<>();
 
     private MasterSocketContract masterSocketContract;
-    private long lastUpdateId = 0;
+    private long lastUpdateId = 1;
 
-    public UpdatesPool(MasterSocketContract masterSocketContract) {
+    public RoomUpdatesPool(MasterSocketContract masterSocketContract) {
         this.masterSocketContract = masterSocketContract;
     }
 
@@ -22,6 +22,7 @@ public class UpdatesPool {
         {
             if(!masterSocketContract.hasClient(clientHandlerContract.getAddress()))
             {
+                System.out.println("Removed " + clientHandlerContract.getAddress());
                 connectedClients.remove(clientHandlerContract);
             }
         }
@@ -68,6 +69,12 @@ public class UpdatesPool {
     {
         update.setUpdateId(lastUpdateId);
         updates.add(update);
+
+        for(ClientHandlerContract clientHandlerContract : getConnectedClients())
+        {
+            clientHandlerContract.sendUpdate(update);
+        }
+
         lastUpdateId++;
     }
 }

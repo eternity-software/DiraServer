@@ -5,6 +5,6 @@ public interface MasterSocketContract {
     void registerClient(ClientHandler clientHandler);
     void unregisterClient(ClientHandler clientHandler);
     boolean hasClient(String address);
-    UpdatesPool getUpdatesPool(String roomSecret);
+    RoomUpdatesPool getUpdatesPool(String roomSecret);
 
 }

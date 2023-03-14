@@ -8,7 +8,7 @@ public class SubscribeUpdate extends Update {
     private List<String> subscribedRoomSecrets = new ArrayList<>();
 
     public SubscribeUpdate(long updateId) {
-        super(updateId);
+        super(updateId, UpdateType.SUBSCRIBE_UPDATE);
     }
 
     public List<String> getSubscribedRoomSecrets() {

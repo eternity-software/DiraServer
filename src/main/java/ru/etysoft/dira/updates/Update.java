@@ -7,18 +7,25 @@ public class Update {
     private long updateExpireSec = 8 * 60 * 60;
     private long updateCreatedTime;
     private String roomSecret;
+    private UpdateType updateType;
 
-    public Update(long updateId) {
+    public Update(long updateId, UpdateType updateType) {
         this.updateId = updateId;
+        this.updateType = updateType;
         updateCreatedTime = System.currentTimeMillis();
+    }
+
+    public long getOriginRequestId() {
+        return originRequestId;
     }
 
     public String getRoomSecret() {
         return roomSecret;
     }
 
-    public void setRoomSecret(String roomSecret) {
+    public Update setRoomSecret(String roomSecret) {
         this.roomSecret = roomSecret;
+        return this;
     }
 
     public void setUpdateExpireSec(long updateExpireSec) {
@@ -42,7 +49,8 @@ public class Update {
         return updateId;
     }
 
-    public void setOriginRequestId(long originRequestId) {
+    public Update setOriginRequestId(long originRequestId) {
         this.originRequestId = originRequestId;
+        return this;
     }
 }
