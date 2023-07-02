@@ -1,5 +1,8 @@
 package ru.etysoft.dira.requests.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message {
 
 
@@ -9,6 +12,7 @@ public class Message {
     private String text;
     private String authorNickname;
     private long time;
+    private List<Attachment> attachments = new ArrayList<>();
     private long lastTimeAuthorUpdated;
 
     public Message(String authorId, String text, String authorNickname) {
@@ -20,6 +24,14 @@ public class Message {
     public Message()
     {
 
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public String getRoomSecret() {

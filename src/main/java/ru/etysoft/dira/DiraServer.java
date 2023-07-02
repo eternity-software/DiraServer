@@ -1,7 +1,9 @@
 package ru.etysoft.dira;
 
+import ru.etysoft.dira.files.FileReceiver;
 import ru.etysoft.dira.sockets.MasterSocket;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class DiraServer {
@@ -9,7 +11,10 @@ public class DiraServer {
     public static long timeSeverStartup;
     public static void main(String[] args) {
         timeSeverStartup = System.currentTimeMillis();
+
+
         startMasterSocket();
+
     }
 
     private static void startMasterSocket()

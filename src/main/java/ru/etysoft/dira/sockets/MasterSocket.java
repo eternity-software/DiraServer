@@ -26,6 +26,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     public MasterSocket(InetSocketAddress inetSocketAddress) {
         super(inetSocketAddress);
+
     }
 
     @Override
@@ -38,8 +39,8 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
-        unregisterClient(webSocket.getRemoteSocketAddress().toString());
         Logger.info("Closed connection from "  + webSocket.getRemoteSocketAddress(), TAG);
+        unregisterClient(webSocket.getRemoteSocketAddress().toString());
     }
 
     @Override
