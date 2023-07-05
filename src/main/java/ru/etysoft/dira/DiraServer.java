@@ -1,6 +1,6 @@
 package ru.etysoft.dira;
 
-import ru.etysoft.dira.files.FileReceiver;
+
 import ru.etysoft.dira.sockets.MasterSocket;
 
 import java.io.IOException;
@@ -12,9 +12,7 @@ public class DiraServer {
     public static void main(String[] args) {
         timeSeverStartup = System.currentTimeMillis();
 
-
         startMasterSocket();
-
     }
 
     private static void startMasterSocket()
