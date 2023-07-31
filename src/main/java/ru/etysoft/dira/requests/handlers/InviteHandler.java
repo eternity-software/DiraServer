@@ -34,7 +34,6 @@ public class InviteHandler extends RequestHandler {
                 newRoomUpdate.setOriginRequestId(getRequestId());
 
                 getClientHandlerContract().sendUpdate(newRoomUpdate);
-                return;
             }
         }
         else if(getRequest() instanceof CreateInviteRequest) {

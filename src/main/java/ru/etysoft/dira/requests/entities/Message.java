@@ -14,6 +14,7 @@ public class Message {
     private long time;
     private List<Attachment> attachments = new ArrayList<>();
     private long lastTimeAuthorUpdated;
+    private long lastTimeEncryptionKeyUpdated;
 
     public Message(String authorId, String text, String authorNickname) {
         this.authorId = authorId;

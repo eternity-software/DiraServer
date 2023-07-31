@@ -20,11 +20,11 @@ public class RoomInfoRequestHandler extends RequestHandler {
             VerifyRoomInfoRequest verifyRoomInfoRequest = (VerifyRoomInfoRequest) getRequest();
             if(verifyRoomInfoRequest.getRoomSecret().length() > 64 && verifyRoomInfoRequest.getName().length() > 1)
             {
-                answerAccepted(true);
+                sendRequestAcceptedStatus(true);
             }
             else
             {
-                answerAccepted(false);
+                sendRequestAcceptedStatus(false);
             }
         }
     }

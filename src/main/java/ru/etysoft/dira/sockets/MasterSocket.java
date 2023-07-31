@@ -5,6 +5,9 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import ru.etysoft.dira.requests.*;
+import ru.etysoft.dira.requests.encryption.KeyRenewRequest;
+import ru.etysoft.dira.requests.encryption.SendIntermediateKey;
+import ru.etysoft.dira.requests.encryption.SubmitKeyRequest;
 import ru.etysoft.dira.requests.handlers.*;
 import ru.etysoft.dira.updates.ServerSyncUpdate;
 import ru.etysoft.dira.updates.SubscribeUpdate;
@@ -19,7 +22,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     public static final String TAG = "MasterDiraSocket";
 
-    public static final List<String> SUPPORTED_APIS = Arrays.asList("0.0.1", "0.0.2");
+    public static final List<String> SUPPORTED_APIS = Arrays.asList("0.0.3");
 
     private HashMap<String, ClientHandlerContract> clients = new HashMap<>();
     private HashMap<String, RoomUpdatesPool> updates = new HashMap<>();
@@ -93,6 +96,31 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
         {
             JoinRoomRequest joinRoomRequest = gson.fromJson(rawMessage, JoinRoomRequest.class);
             new InviteHandler(joinRoomRequest, getClient(webSocket), this).process();
+        }
+        else if(request.getRequestType() == RequestType.PING_MEMBERS)
+        {
+            PingMembersRequest pingMembersRequest = gson.fromJson(rawMessage, PingMembersRequest.class);
+            new PingMembersHandler(pingMembersRequest, getClient(webSocket), this).process();
+        }
+        else if(request.getRequestType() == RequestType.PING_REACT)
+        {
+            PingReactRequest pingReactRequest = gson.fromJson(rawMessage, PingReactRequest.class);
+            new PingReactHandler(pingReactRequest, getClient(webSocket), this).process();
+        }
+        else if(request.getRequestType() == RequestType.KEY_RENEW_REQUEST)
+        {
+            KeyRenewRequest keyRenewRequest = gson.fromJson(rawMessage, KeyRenewRequest.class);
+            new KeyRenewHandler(keyRenewRequest, getClient(webSocket), this).process();
+        }
+        else if(request.getRequestType() == RequestType.SEND_INTERMEDIATE_KEY)
+        {
+            SendIntermediateKey sendIntermediateKey = gson.fromJson(rawMessage, SendIntermediateKey.class);
+            new IntermediateKeyHandler(sendIntermediateKey, getClient(webSocket), this).process();
+        }
+        else if(request.getRequestType() == RequestType.SUBMIT_KEY)
+        {
+            SubmitKeyRequest submitKeyRequest = gson.fromJson(rawMessage, SubmitKeyRequest.class);
+            new SubmitKeyHandler(submitKeyRequest, getClient(webSocket), this).process();
         }
 
     }

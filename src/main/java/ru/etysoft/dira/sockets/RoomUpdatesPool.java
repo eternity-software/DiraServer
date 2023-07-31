@@ -68,6 +68,7 @@ public class RoomUpdatesPool {
     public void registerUpdate(Update update)
     {
         update.setUpdateId(lastUpdateId);
+
         updates.add(update);
 
         for(ClientHandlerContract clientHandlerContract : getConnectedClients())
