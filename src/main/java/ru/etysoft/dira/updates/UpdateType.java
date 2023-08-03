@@ -30,7 +30,11 @@ public enum UpdateType {
     @SerializedName("12")
     RENEWING_CONFIRMED,
     @SerializedName("13")
-    RENEWING_CANCEL
+    RENEWING_CANCEL,
+    @SerializedName("14")
+    READ_UPDATE,
+    @SerializedName("15")
+    USER_STATUS_UPDATE
 
 }
 
