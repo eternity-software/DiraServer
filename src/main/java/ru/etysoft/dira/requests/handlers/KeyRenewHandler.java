@@ -102,6 +102,7 @@ public class KeyRenewHandler extends RequestHandler {
 
             if (count > renewingMembers.get(roomSecret).size())
             {
+                Logger.warning("(DH) Incorrect requests count -> count=" + count + " > renewingCount=" + renewingMembers.get(roomSecret).size() + " id=" + memberId, "KeyRenewHandler");
                 return false;
             }
         }
@@ -110,6 +111,9 @@ public class KeyRenewHandler extends RequestHandler {
         {
             requestHandler.getUpdatesPool(roomSecret).registerUpdate(
                     new RenewingConfirmUpdate(System.currentTimeMillis()).setRoomSecret(roomSecret));
+            renewedMembers.remove(roomSecret);
+            renewingMembers.remove(roomSecret);
+            IntermediateKeyHandler.updateCounter.remove(roomSecret);
             return true;
         }
 
