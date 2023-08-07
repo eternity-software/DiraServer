@@ -1,7 +1,5 @@
 package ru.etysoft.dira.requests;
 
-import ru.etysoft.dira.requests.RequestType;
-
 public class MessageReadRequest extends Request {
 
     private String userId;
@@ -13,7 +11,7 @@ public class MessageReadRequest extends Request {
     private String roomSecret;
 
     public MessageReadRequest(String userId, long readTime, String messageId, String roomSecret) {
-        super(0, RequestType.MESSAGE_READ);
+        super(0, RequestType.MESSAGE_READ_REQUEST);
         this.userId = userId;
         this.readTime = readTime;
         this.messageId = messageId;
@@ -42,5 +40,9 @@ public class MessageReadRequest extends Request {
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;
+    }
+
+    public String getRoomSecret() {
+        return roomSecret;
     }
 }

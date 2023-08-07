@@ -1,20 +1,18 @@
 package ru.etysoft.dira.requests.entities;
 
 public class Status {
-
-    public static final long VISIBLE_TIME_MILLIS = 500;
-
-    public static final long REQUEST_DELAY = 300;
-
     private final UserStatus userStatus;
 
     private final String userId;
 
+    private final String secretName;
+
     private long time;
 
-    public Status(UserStatus userStatus, String userId) {
+    public Status(UserStatus userStatus, String userId, String roomSecret) {
         this.userStatus = userStatus;
         this.userId = userId;
+        this.secretName = roomSecret;
     }
 
     public UserStatus getUserStatus() {
@@ -31,5 +29,9 @@ public class Status {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getSecretName() {
+        return secretName;
     }
 }

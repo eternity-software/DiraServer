@@ -122,6 +122,14 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
             SubmitKeyRequest submitKeyRequest = gson.fromJson(rawMessage, SubmitKeyRequest.class);
             new SubmitKeyHandler(submitKeyRequest, getClient(webSocket), this).process();
         }
+        else if (request.getRequestType() == RequestType.MESSAGE_READ_REQUEST) {
+            MessageReadRequest messageReadRequest = gson.fromJson(rawMessage, MessageReadRequest.class);
+            new MessageReadHandler(request, getClient(webSocket), this).process();
+        }
+        else if (request.getRequestType() == RequestType.USER_STATUS_REQUEST) {
+            SendUserStatusRequest userStatusRequest = gson.fromJson(rawMessage, SendUserStatusRequest.class);
+            new UserStatusHandler(request, getClient(webSocket), this).process();
+        }
 
     }
 
