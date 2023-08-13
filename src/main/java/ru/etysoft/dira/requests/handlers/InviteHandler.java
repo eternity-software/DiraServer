@@ -24,10 +24,8 @@ public class InviteHandler extends RequestHandler {
     @Override
     public void process() {
 
-        if(getRequest() instanceof JoinRoomRequest)
-        {
-            if(invitations.containsKey(((JoinRoomRequest) getRequest()).getInvitationCode()))
-            {
+        if (getRequest() instanceof JoinRoomRequest) {
+            if (invitations.containsKey(((JoinRoomRequest) getRequest()).getInvitationCode())) {
                 InviteRoom inviteRoom = invitations.get(((JoinRoomRequest) getRequest()).getInvitationCode());
 
                 NewRoomUpdate newRoomUpdate = new NewRoomUpdate(inviteRoom);
@@ -35,8 +33,7 @@ public class InviteHandler extends RequestHandler {
 
                 getClientHandlerContract().sendUpdate(newRoomUpdate);
             }
-        }
-        else if(getRequest() instanceof CreateInviteRequest) {
+        } else if (getRequest() instanceof CreateInviteRequest) {
 
             CreateInviteRequest createInviteRequest = (CreateInviteRequest) getRequest();
 

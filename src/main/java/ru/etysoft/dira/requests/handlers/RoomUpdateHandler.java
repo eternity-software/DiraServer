@@ -6,7 +6,7 @@ import ru.etysoft.dira.sockets.ClientHandlerContract;
 import ru.etysoft.dira.sockets.MasterSocketContract;
 import ru.etysoft.dira.updates.RoomUpdate;
 
-public class RoomUpdateHandler extends RequestHandler{
+public class RoomUpdateHandler extends RequestHandler {
     public RoomUpdateHandler(Request request, ClientHandlerContract clientHandlerContract, MasterSocketContract masterSocketContract) {
         super(request, clientHandlerContract, masterSocketContract);
     }

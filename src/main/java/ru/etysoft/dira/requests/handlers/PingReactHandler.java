@@ -18,6 +18,14 @@ public class PingReactHandler extends RequestHandler {
         super(request, clientHandlerContract, masterSocketContract);
     }
 
+    public static void clearBaseMembers(String roomSecret) {
+        pingRoomsMembers.remove(roomSecret);
+    }
+
+    public static List<BaseMember> getBaseMembers(String roomSecret) {
+        return pingRoomsMembers.get(roomSecret);
+    }
+
     @Override
     public void process() {
         PingReactRequest pingMembersRequest = (PingReactRequest) getRequest();
@@ -26,14 +34,12 @@ public class PingReactHandler extends RequestHandler {
 
         List<BaseMember> baseMembers = new ArrayList<>();
 
-        if(pingRoomsMembers.containsKey(pingMembersRequest.getRoomSecret()))
-        {
+        if (pingRoomsMembers.containsKey(pingMembersRequest.getRoomSecret())) {
             baseMembers = pingRoomsMembers.get(pingMembersRequest.getRoomSecret());
         }
 
-        for(BaseMember pendingBaseMember : baseMembers)
-        {
-            if(baseMember.getId().equals(pendingBaseMember.getId())) return;
+        for (BaseMember pendingBaseMember : baseMembers) {
+            if (baseMember.getId().equals(pendingBaseMember.getId())) return;
         }
 
         baseMembers.add(baseMember);
@@ -43,14 +49,5 @@ public class PingReactHandler extends RequestHandler {
         getUpdatesPool(pingMembersRequest.getRoomSecret()).registerUpdate(
                 new BaseMemberUpdate(baseMember).setRoomSecret(pingMembersRequest.getRoomSecret()));
         sendRequestAcceptedStatus(true);
-    }
-
-    public static void clearBaseMembers(String roomSecret)
-    {
-        pingRoomsMembers.remove(roomSecret);
-    }
-    public static List<BaseMember> getBaseMembers(String roomSecret)
-    {
-        return pingRoomsMembers.get(roomSecret);
     }
 }

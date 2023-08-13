@@ -1,6 +1,6 @@
 package ru.etysoft.dira.requests;
 
-public class GetUpdatesRequest extends Request{
+public class GetUpdatesRequest extends Request {
 
     private String roomSecret;
     private long fromUpdateId;

@@ -22,8 +22,7 @@ public class Message {
         this.authorNickname = authorNickname;
     }
 
-    public Message()
-    {
+    public Message() {
 
     }
 

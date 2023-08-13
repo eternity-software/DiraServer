@@ -5,7 +5,7 @@ import ru.etysoft.dira.requests.entities.BaseMember;
 /**
  * Member reaction for PingUpdate
  */
-public class PingReactRequest extends Request{
+public class PingReactRequest extends Request {
 
     private String roomSecret;
     private BaseMember baseMember;

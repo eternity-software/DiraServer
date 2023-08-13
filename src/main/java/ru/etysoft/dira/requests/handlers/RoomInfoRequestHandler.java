@@ -13,19 +13,10 @@ public class RoomInfoRequestHandler extends RequestHandler {
     }
 
     @Override
-    public void process()
-    {
-        if(getRequestType() == RequestType.VERIFY_ROOM_INFO)
-        {
+    public void process() {
+        if (getRequestType() == RequestType.VERIFY_ROOM_INFO) {
             VerifyRoomInfoRequest verifyRoomInfoRequest = (VerifyRoomInfoRequest) getRequest();
-            if(verifyRoomInfoRequest.getRoomSecret().length() > 64 && verifyRoomInfoRequest.getName().length() > 1)
-            {
-                sendRequestAcceptedStatus(true);
-            }
-            else
-            {
-                sendRequestAcceptedStatus(false);
-            }
+            sendRequestAcceptedStatus(verifyRoomInfoRequest.getRoomSecret().length() > 64 && verifyRoomInfoRequest.getName().length() > 1);
         }
     }
 

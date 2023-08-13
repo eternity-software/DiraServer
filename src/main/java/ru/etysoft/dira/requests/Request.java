@@ -2,8 +2,8 @@ package ru.etysoft.dira.requests;
 
 public class Request {
 
-    private long requestId;
-    private RequestType requestType;
+    private final long requestId;
+    private final RequestType requestType;
 
     public Request(long requestId, RequestType requestType) {
         this.requestId = requestId;

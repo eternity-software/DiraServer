@@ -1,8 +1,9 @@
 package ru.etysoft.dira.updates;
 
-public class RenewingConfirmUpdate extends Update{
+public class RenewingConfirmUpdate extends Update {
 
     private long timeKeyConfirmed;
+
     public RenewingConfirmUpdate(long timeKeyConfirmed) {
         super(0, UpdateType.RENEWING_CONFIRMED);
         this.timeKeyConfirmed = timeKeyConfirmed;

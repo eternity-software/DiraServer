@@ -7,10 +7,10 @@ import java.util.List;
 
 public class RoomUpdatesPool {
 
-    private List<Update> updates = new ArrayList<>();
-    private List<ClientHandlerContract> connectedClients = new ArrayList<>();
+    private final List<Update> updates = new ArrayList<>();
+    private final List<ClientHandlerContract> connectedClients = new ArrayList<>();
 
-    private MasterSocketContract masterSocketContract;
+    private final MasterSocketContract masterSocketContract;
     private long lastUpdateId = 1;
 
     public RoomUpdatesPool(MasterSocketContract masterSocketContract) {
@@ -18,10 +18,8 @@ public class RoomUpdatesPool {
     }
 
     public List<ClientHandlerContract> getConnectedClients() {
-        for(ClientHandlerContract clientHandlerContract : new ArrayList<>(connectedClients))
-        {
-            if(!masterSocketContract.hasClient(clientHandlerContract.getAddress()))
-            {
+        for (ClientHandlerContract clientHandlerContract : new ArrayList<>(connectedClients)) {
+            if (!masterSocketContract.hasClient(clientHandlerContract.getAddress())) {
                 System.out.println("Removed " + clientHandlerContract.getAddress());
                 connectedClients.remove(clientHandlerContract);
             }
@@ -30,49 +28,40 @@ public class RoomUpdatesPool {
     }
 
     public List<Update> getUpdates() {
-        for(Update update : new ArrayList<>(updates))
-        {
-            if(update.isExpired())
-            {
+        for (Update update : new ArrayList<>(updates)) {
+            if (update.isExpired()) {
                 updates.remove(update);
             }
         }
         return new ArrayList<>(updates);
     }
 
-    public void registerClient(ClientHandlerContract clientHandlerContract)
-    {
-        if(!connectedClients.contains(clientHandlerContract))
-        {
+    public void registerClient(ClientHandlerContract clientHandlerContract) {
+        if (!connectedClients.contains(clientHandlerContract)) {
             connectedClients.add(clientHandlerContract);
         }
     }
 
-    public void unregisterClient(ClientHandlerContract clientHandlerContract)
-    {
+    public void unregisterClient(ClientHandlerContract clientHandlerContract) {
         connectedClients.remove(clientHandlerContract);
     }
 
     public List<Update> getUpdatesAfter(long updateId) {
         List<Update> filteredUpdates = new ArrayList<>(getUpdates());
-        for(Update update : new ArrayList<>(filteredUpdates))
-        {
-            if(update.getUpdateId() <= updateId)
-            {
+        for (Update update : new ArrayList<>(filteredUpdates)) {
+            if (update.getUpdateId() <= updateId) {
                 filteredUpdates.remove(update);
             }
         }
         return filteredUpdates;
     }
 
-    public void registerUpdate(Update update)
-    {
+    public void registerUpdate(Update update) {
         update.setUpdateId(lastUpdateId);
 
         updates.add(update);
 
-        for(ClientHandlerContract clientHandlerContract : getConnectedClients())
-        {
+        for (ClientHandlerContract clientHandlerContract : getConnectedClients()) {
             clientHandlerContract.sendUpdate(update);
         }
 

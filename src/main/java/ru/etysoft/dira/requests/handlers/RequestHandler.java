@@ -8,7 +8,7 @@ import ru.etysoft.dira.sockets.RoomUpdatesPool;
 import ru.etysoft.dira.updates.AcceptedStatusAnswer;
 
 public abstract class RequestHandler {
-    
+
     private Request request;
     private ClientHandlerContract clientHandlerContract;
     private MasterSocketContract masterSocketContract;
@@ -19,20 +19,20 @@ public abstract class RequestHandler {
         this.masterSocketContract = masterSocketContract;
     }
 
-    public void sendRequestAcceptedStatus(boolean isAccepted)
-    {
+    public void sendRequestAcceptedStatus(boolean isAccepted) {
         clientHandlerContract.sendUpdate(new AcceptedStatusAnswer(0, isAccepted).setOriginRequestId(getRequestId()));
     }
 
     public long getRequestId() {
         return request.getRequestId();
     }
-    
+
     public abstract void process();
+
     public RequestType getRequestType() {
         return request.getRequestType();
     }
-    
+
     public Request getRequest() {
         return request;
     }
@@ -57,8 +57,7 @@ public abstract class RequestHandler {
         this.masterSocketContract = masterSocketContract;
     }
 
-    public RoomUpdatesPool getUpdatesPool(String roomSecret)
-    {
+    public RoomUpdatesPool getUpdatesPool(String roomSecret) {
         return masterSocketContract.getUpdatesPool(roomSecret);
     }
 }

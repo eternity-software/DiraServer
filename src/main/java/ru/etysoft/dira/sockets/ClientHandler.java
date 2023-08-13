@@ -8,8 +8,8 @@ import ru.etysoft.dira.updates.Update;
 public class ClientHandler implements ClientHandlerContract {
 
 
-    private MasterSocketContract masterSocketContract;
-    private WebSocket clientConnection;
+    private final MasterSocketContract masterSocketContract;
+    private final WebSocket clientConnection;
 
     public ClientHandler(MasterSocketContract masterSocketContract,
                          WebSocket clientConnection) {

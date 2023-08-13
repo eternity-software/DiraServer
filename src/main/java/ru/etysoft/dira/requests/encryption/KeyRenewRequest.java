@@ -6,6 +6,7 @@ import ru.etysoft.dira.requests.RequestType;
 public class KeyRenewRequest extends Request {
 
     private String roomSecret;
+
     public KeyRenewRequest(String roomSecret) {
         super(0, RequestType.KEY_RENEW_REQUEST);
         this.roomSecret = roomSecret;

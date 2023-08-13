@@ -16,9 +16,7 @@ public class MemberUpdateHandler extends RequestHandler {
         UpdateMemberRequest updateMemberRequest = (UpdateMemberRequest) getRequest();
 
 
-
-        for(String roomSecret : updateMemberRequest.getRoomSecrets())
-        {
+        for (String roomSecret : updateMemberRequest.getRoomSecrets()) {
             MemberUpdate memberUpdate = new MemberUpdate(updateMemberRequest.getNickname(),
                     updateMemberRequest.getBase64pic(), updateMemberRequest.getId(), updateMemberRequest.getUpdateTime());
             memberUpdate.setRoomSecret(roomSecret);

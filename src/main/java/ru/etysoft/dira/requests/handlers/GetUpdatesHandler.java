@@ -17,10 +17,9 @@ public class GetUpdatesHandler extends RequestHandler {
     public void process() {
         GetUpdatesRequest getUpdatesRequest = (GetUpdatesRequest) getRequest();
 
-        RoomUpdatesPool roomUpdatesPool = getMasterSocketContract ().getUpdatesPool(getUpdatesRequest.getRoomSecret());
+        RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(getUpdatesRequest.getRoomSecret());
 
-        for(Update update : roomUpdatesPool.getUpdatesAfter(getUpdatesRequest.getFromUpdateId()))
-        {
+        for (Update update : roomUpdatesPool.getUpdatesAfter(getUpdatesRequest.getFromUpdateId())) {
             getClientHandlerContract().sendUpdate(update);
         }
 

@@ -3,8 +3,6 @@ package ru.etysoft.dira.requests.encryption;
 import ru.etysoft.dira.requests.Request;
 import ru.etysoft.dira.requests.RequestType;
 import ru.etysoft.dira.requests.entities.DhKey;
-import ru.etysoft.dira.updates.Update;
-import ru.etysoft.dira.updates.UpdateType;
 
 public class SendIntermediateKey extends Request {
     private DhKey dhKey;

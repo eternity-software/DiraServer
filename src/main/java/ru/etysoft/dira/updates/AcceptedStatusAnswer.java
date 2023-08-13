@@ -1,6 +1,6 @@
 package ru.etysoft.dira.updates;
 
-public class AcceptedStatusAnswer extends Update{
+public class AcceptedStatusAnswer extends Update {
 
     private boolean isAccepted;
 

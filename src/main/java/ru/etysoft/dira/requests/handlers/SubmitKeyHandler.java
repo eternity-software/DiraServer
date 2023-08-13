@@ -6,7 +6,7 @@ import ru.etysoft.dira.requests.entities.BaseMember;
 import ru.etysoft.dira.sockets.ClientHandlerContract;
 import ru.etysoft.dira.sockets.MasterSocketContract;
 
-public class SubmitKeyHandler extends RequestHandler{
+public class SubmitKeyHandler extends RequestHandler {
     public SubmitKeyHandler(Request request, ClientHandlerContract clientHandlerContract, MasterSocketContract masterSocketContract) {
         super(request, clientHandlerContract, masterSocketContract);
     }

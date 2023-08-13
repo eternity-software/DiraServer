@@ -1,6 +1,5 @@
 package ru.etysoft.dira.requests.handlers;
 
-import ru.etysoft.dira.requests.Request;
 import ru.etysoft.dira.requests.SendMessageRequest;
 import ru.etysoft.dira.sockets.ClientHandlerContract;
 import ru.etysoft.dira.sockets.MasterSocketContract;
@@ -19,8 +18,7 @@ public class NewMessageHandler extends RequestHandler {
         newMessageUpdate.getMessage().setTime(System.currentTimeMillis());
 
 
-        if(newMessageUpdate.getMessage().getId().length() > 12 && newMessageUpdate.getMessage().getRoomSecret().length() > 64)
-        {
+        if (newMessageUpdate.getMessage().getId().length() > 12 && newMessageUpdate.getMessage().getRoomSecret().length() > 64) {
             getMasterSocketContract().getUpdatesPool(sendMessageRequest.getMessage().getRoomSecret()).registerUpdate(newMessageUpdate);
         }
 
