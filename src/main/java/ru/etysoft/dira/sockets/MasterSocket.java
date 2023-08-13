@@ -22,10 +22,10 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     public static final String TAG = "MasterDiraSocket";
 
-    public static final List<String> SUPPORTED_APIS = Arrays.asList("0.0.3");
+    public static final List<String> SUPPORTED_APIS = List.of("0.0.3");
 
-    private HashMap<String, ClientHandlerContract> clients = new HashMap<>();
-    private HashMap<String, RoomUpdatesPool> updates = new HashMap<>();
+    private final HashMap<String, ClientHandlerContract> clients = new HashMap<>();
+    private final HashMap<String, RoomUpdatesPool> updates = new HashMap<>();
 
     public MasterSocket(InetSocketAddress inetSocketAddress) {
         super(inetSocketAddress);
@@ -34,7 +34,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-        Logger.info("New client connection from "  + webSocket.getRemoteSocketAddress(), TAG);
+        Logger.info("New client connection from " + webSocket.getRemoteSocketAddress(), TAG);
         ClientHandler clientHandler = new ClientHandler(this, webSocket);
         clients.put(webSocket.getRemoteSocketAddress().toString(), clientHandler);
         clientHandler.sendUpdate(new ServerSyncUpdate());
@@ -42,7 +42,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
-        Logger.info("Closed connection from "  + webSocket.getRemoteSocketAddress(), TAG);
+        Logger.info("Closed connection from " + webSocket.getRemoteSocketAddress(), TAG);
         unregisterClient(webSocket.getRemoteSocketAddress().toString());
     }
 
@@ -52,81 +52,53 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
         Request request = gson.fromJson(rawMessage, Request.class);
         System.out.println(rawMessage);
 
-        if(request.getRequestType() == RequestType.SUBSCRIBE_REQUEST)
-        {
+        if (request.getRequestType() == RequestType.SUBSCRIBE_REQUEST) {
             SubscribeRequest subscribeRequest = gson.fromJson(rawMessage, SubscribeRequest.class);
 
-            for(String roomSecret : subscribeRequest.getRoomSecrets())
-            {
+            for (String roomSecret : subscribeRequest.getRoomSecrets()) {
                 getUpdatesPool(roomSecret).registerClient(getClient(webSocket));
             }
             getClient(webSocket).sendUpdate(new SubscribeUpdate(0).setSubscribedRoomSecrets(subscribeRequest.getRoomSecrets()));
-        }
-        else if(request.getRequestType() == RequestType.VERIFY_ROOM_INFO)
-        {
+        } else if (request.getRequestType() == RequestType.VERIFY_ROOM_INFO) {
             VerifyRoomInfoRequest verifyRoomInfoRequest = gson.fromJson(rawMessage, VerifyRoomInfoRequest.class);
             new RoomInfoRequestHandler(verifyRoomInfoRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.SEND_MESSAGE_REQUEST)
-        {
+        } else if (request.getRequestType() == RequestType.SEND_MESSAGE_REQUEST) {
             SendMessageRequest sendMessageRequest = gson.fromJson(rawMessage, SendMessageRequest.class);
             new NewMessageHandler(sendMessageRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.GET_UPDATES)
-        {
+        } else if (request.getRequestType() == RequestType.GET_UPDATES) {
             GetUpdatesRequest getUpdatesRequest = gson.fromJson(rawMessage, GetUpdatesRequest.class);
             new GetUpdatesHandler(getUpdatesRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.UPDATE_ROOM)
-        {
+        } else if (request.getRequestType() == RequestType.UPDATE_ROOM) {
             RoomUpdateRequest roomUpdateRequest = gson.fromJson(rawMessage, RoomUpdateRequest.class);
             new RoomUpdateHandler(roomUpdateRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.UPDATE_MEMBER)
-        {
+        } else if (request.getRequestType() == RequestType.UPDATE_MEMBER) {
             UpdateMemberRequest updateMemberRequest = gson.fromJson(rawMessage, UpdateMemberRequest.class);
             new MemberUpdateHandler(updateMemberRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.CREATE_INVITE)
-        {
+        } else if (request.getRequestType() == RequestType.CREATE_INVITE) {
             CreateInviteRequest updateMemberRequest = gson.fromJson(rawMessage, CreateInviteRequest.class);
             new InviteHandler(updateMemberRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.ACCEPT_INVITE)
-        {
+        } else if (request.getRequestType() == RequestType.ACCEPT_INVITE) {
             JoinRoomRequest joinRoomRequest = gson.fromJson(rawMessage, JoinRoomRequest.class);
             new InviteHandler(joinRoomRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.PING_MEMBERS)
-        {
+        } else if (request.getRequestType() == RequestType.PING_MEMBERS) {
             PingMembersRequest pingMembersRequest = gson.fromJson(rawMessage, PingMembersRequest.class);
             new PingMembersHandler(pingMembersRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.PING_REACT)
-        {
+        } else if (request.getRequestType() == RequestType.PING_REACT) {
             PingReactRequest pingReactRequest = gson.fromJson(rawMessage, PingReactRequest.class);
             new PingReactHandler(pingReactRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.KEY_RENEW_REQUEST)
-        {
+        } else if (request.getRequestType() == RequestType.KEY_RENEW_REQUEST) {
             KeyRenewRequest keyRenewRequest = gson.fromJson(rawMessage, KeyRenewRequest.class);
             new KeyRenewHandler(keyRenewRequest, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.SEND_INTERMEDIATE_KEY)
-        {
+        } else if (request.getRequestType() == RequestType.SEND_INTERMEDIATE_KEY) {
             SendIntermediateKey sendIntermediateKey = gson.fromJson(rawMessage, SendIntermediateKey.class);
             new IntermediateKeyHandler(sendIntermediateKey, getClient(webSocket), this).process();
-        }
-        else if(request.getRequestType() == RequestType.SUBMIT_KEY)
-        {
+        } else if (request.getRequestType() == RequestType.SUBMIT_KEY) {
             SubmitKeyRequest submitKeyRequest = gson.fromJson(rawMessage, SubmitKeyRequest.class);
             new SubmitKeyHandler(submitKeyRequest, getClient(webSocket), this).process();
-        }
-        else if (request.getRequestType() == RequestType.MESSAGE_READ_REQUEST) {
+        } else if (request.getRequestType() == RequestType.MESSAGE_READ_REQUEST) {
             MessageReadRequest messageReadRequest = gson.fromJson(rawMessage, MessageReadRequest.class);
             new MessageReadHandler(messageReadRequest, getClient(webSocket), this).process();
-        }
-        else if (request.getRequestType() == RequestType.USER_STATUS_REQUEST) {
+        } else if (request.getRequestType() == RequestType.USER_STATUS_REQUEST) {
             SendUserStatusRequest userStatusRequest = gson.fromJson(rawMessage, SendUserStatusRequest.class);
             new UserStatusHandler(userStatusRequest, getClient(webSocket), this).process();
         }
@@ -140,37 +112,31 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
         unregisterClient(webSocket.getRemoteSocketAddress().toString());
         webSocket.close();
-        Logger.info("Closed connection from "  + webSocket.getRemoteSocketAddress(), TAG);
+        Logger.info("Closed connection from " + webSocket.getRemoteSocketAddress(), TAG);
     }
 
-    public ClientHandlerContract getClient(WebSocket webSocket)
-    {
+    public ClientHandlerContract getClient(WebSocket webSocket) {
         return clients.get(webSocket.getRemoteSocketAddress().toString());
     }
 
-    public void registerClient(String remoteAddress, ClientHandler clientHandler)
-    {
-        if(!clients.containsKey(remoteAddress))
-        {
+    public void registerClient(String remoteAddress, ClientHandler clientHandler) {
+        if (!clients.containsKey(remoteAddress)) {
             clients.put(remoteAddress, clientHandler);
         }
     }
 
-    public void unregisterClient(String remoteAddress)
-    {
+    public void unregisterClient(String remoteAddress) {
         clients.remove(remoteAddress);
     }
 
     @Override
     public void onStart() {
         Logger.info("MasterSocket Started", TAG);
-        for(String apiVersion : SUPPORTED_APIS)
-        {
+        for (String apiVersion : SUPPORTED_APIS) {
             Logger.info("Version " + apiVersion + " supported", TAG);
         }
 
     }
-
 
 
     @Override
@@ -190,8 +156,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     @Override
     public RoomUpdatesPool getUpdatesPool(String roomSecret) {
-        if(!updates.containsKey(roomSecret))
-        {
+        if (!updates.containsKey(roomSecret)) {
             RoomUpdatesPool roomUpdatesPool = new RoomUpdatesPool(this);
             updates.put(roomSecret, roomUpdatesPool);
             return roomUpdatesPool;

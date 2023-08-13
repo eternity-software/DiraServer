@@ -16,10 +16,6 @@ public class ServerSyncUpdate extends Update {
         super(0, UpdateType.SERVER_SYNC);
     }
 
-    public void setSupportedApis(List<String> supportedApis) {
-        this.supportedApis = supportedApis;
-    }
-
     public String getFileServerUrl() {
         return fileServerUrl;
     }
@@ -38,5 +34,9 @@ public class ServerSyncUpdate extends Update {
 
     public List<String> getSupportedApis() {
         return supportedApis;
+    }
+
+    public void setSupportedApis(List<String> supportedApis) {
+        this.supportedApis = supportedApis;
     }
 }

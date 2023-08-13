@@ -1,17 +1,17 @@
 package ru.etysoft.dira.requests;
 
-import ru.etysoft.dira.requests.entities.Status;
+import ru.etysoft.dira.requests.entities.UserStatus;
 
 public class SendUserStatusRequest extends Request {
 
-    private Status status;
+    private final UserStatus userStatus;
 
-    public SendUserStatusRequest(Status status) {
+    public SendUserStatusRequest(UserStatus userStatus) {
         super(0, RequestType.USER_STATUS_REQUEST);
-        this.status = status;
+        this.userStatus = userStatus;
     }
 
-    public Status getStatus() {
-        return status;
+    public UserStatus getStatus() {
+        return userStatus;
     }
 }

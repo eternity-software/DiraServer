@@ -1,15 +1,37 @@
 package ru.etysoft.dira.requests.entities;
 
-import com.google.gson.annotations.SerializedName;
+public class UserStatus {
+    private final UserStatusType userStatusType;
 
-public enum UserStatus {
+    private final String userId;
 
-    @SerializedName("0")
-    TYPING,
+    private final String secretName;
 
-    @SerializedName("1")
-    CHOOSING_IMAGE,
+    private long time;
 
-    @SerializedName("2")
-    SENDING_IMAGE
+    public UserStatus(UserStatusType userStatusType, String userId, String roomSecret) {
+        this.userStatusType = userStatusType;
+        this.userId = userId;
+        this.secretName = roomSecret;
+    }
+
+    public UserStatusType getUserStatus() {
+        return userStatusType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getSecretName() {
+        return secretName;
+    }
 }

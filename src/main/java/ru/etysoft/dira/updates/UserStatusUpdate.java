@@ -1,24 +1,24 @@
 package ru.etysoft.dira.updates;
 
-import ru.etysoft.dira.requests.entities.Status;
+import ru.etysoft.dira.requests.entities.UserStatus;
 
 public class UserStatusUpdate extends Update {
 
     private static final long TIME_EXPIRE_SEC = 5;
 
-    private Status status;
+    private UserStatus userStatus;
 
-    public UserStatusUpdate(Status status) {
+    public UserStatusUpdate(UserStatus userStatus) {
         super(0, UpdateType.USER_STATUS_UPDATE);
         this.setUpdateExpireSec(TIME_EXPIRE_SEC);
-        this.status = status;
+        this.userStatus = userStatus;
     }
 
-    public Status getStatus() {
-        return status;
+    public UserStatus getStatus() {
+        return userStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
     }
 }

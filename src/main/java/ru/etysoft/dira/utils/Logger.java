@@ -31,50 +31,42 @@ public class Logger {
     public final static String INFO_PREFIX = "INFO";
     public final static String DEBUG_PREFIX = "DEBUG";
 
-    public static void debug(String message, String sender)
-    {
+    public static void debug(String message, String sender) {
 
         sendPrefixedMessage(ANSI_PURPLE + message + ANSI_RESET, DEBUG_PREFIX, sender);
 
     }
 
-    public static void greenLog(String message, String sender)
-    {
+    public static void greenLog(String message, String sender) {
         sendPrefixedMessage(ANSI_GREEN + message + ANSI_RESET, DEBUG_PREFIX, sender);
     }
 
-    public static void info(String message, String sender)
-    {
+    public static void info(String message, String sender) {
         sendPrefixedMessage(message, INFO_PREFIX, sender);
     }
 
-    public static void critical(String message, String sender)
-    {
+    public static void critical(String message, String sender) {
         sendPrefixedMessage(ANSI_RED_BACKGROUND + ANSI_BLACK + message + ANSI_RESET, CRITICAL_PREFIX, sender);
     }
 
-    public static void warning(String warning, String sender)
-    {
+    public static void warning(String warning, String sender) {
 
         sendPrefixedMessage(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + warning + ANSI_RESET, WARNING_PREFIX, sender);
     }
 
-    public static void error(String error, String sender)
-    {
+    public static void error(String error, String sender) {
         sendPrefixedMessage(ANSI_RED + error + ANSI_RESET, ERROR_PREFIX, sender);
     }
 
-    public static void sendPrefixedMessage(String message, String prefix, String sender)
-    {
-        String formattedMessage = "[" + prefix  + " | " + getTimePrefix() + "] " + sender + ": " +  message;
+    public static void sendPrefixedMessage(String message, String prefix, String sender) {
+        String formattedMessage = "[" + prefix + " | " + getTimePrefix() + "] " + sender + ": " + message;
         System.out.println(formattedMessage);
 
 
     }
 
 
-    public static String getTimePrefix()
-    {
+    public static String getTimePrefix() {
         final long timestamp = new Date().getTime();
 
         final Calendar cal = Calendar.getInstance();
