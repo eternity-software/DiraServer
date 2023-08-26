@@ -8,6 +8,10 @@ public class Attachment {
     private long size;
     private AttachmentType attachmentType;
 
+    private int width = -1;
+
+    private int height = -1;
+
     public String getFileUrl() {
         return fileUrl;
     }
@@ -46,5 +50,21 @@ public class Attachment {
 
     public void setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
