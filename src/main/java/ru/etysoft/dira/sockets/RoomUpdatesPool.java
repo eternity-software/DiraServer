@@ -24,7 +24,6 @@ public class RoomUpdatesPool {
                 connectedClients.remove(null);
             }
             else if (!masterSocketContract.hasClient(clientHandlerContract.getAddress())) {
-                System.out.println("Removed " + clientHandlerContract.getAddress());
                 connectedClients.remove(clientHandlerContract);
             }
         }
