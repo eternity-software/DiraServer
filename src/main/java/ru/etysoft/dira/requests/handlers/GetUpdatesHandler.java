@@ -2,6 +2,7 @@ package ru.etysoft.dira.requests.handlers;
 
 import ru.etysoft.dira.requests.GetUpdatesRequest;
 import ru.etysoft.dira.requests.Request;
+import ru.etysoft.dira.requests.entities.RoomInfo;
 import ru.etysoft.dira.sockets.ClientHandlerContract;
 import ru.etysoft.dira.sockets.MasterSocketContract;
 import ru.etysoft.dira.sockets.RoomUpdatesPool;
@@ -17,10 +18,12 @@ public class GetUpdatesHandler extends RequestHandler {
     public void process() {
         GetUpdatesRequest getUpdatesRequest = (GetUpdatesRequest) getRequest();
 
-        RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(getUpdatesRequest.getRoomSecret());
+        for (RoomInfo roomInfo: getUpdatesRequest.getRoomInfoList()) {
+            RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(roomInfo.getRoomSecret());
 
-        for (Update update : roomUpdatesPool.getUpdatesAfter(getUpdatesRequest.getFromUpdateId())) {
-            getClientHandlerContract().sendUpdate(update);
+            for (Update update : roomUpdatesPool.getUpdatesAfter(roomInfo.getFromUpdateId())) {
+                getClientHandlerContract().sendUpdate(update);
+            }
         }
 
         AcceptedStatusAnswer acceptedStatusAnswer = new AcceptedStatusAnswer(0, true);
