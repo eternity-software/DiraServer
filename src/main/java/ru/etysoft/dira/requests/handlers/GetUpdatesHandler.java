@@ -18,11 +18,20 @@ public class GetUpdatesHandler extends RequestHandler {
     public void process() {
         GetUpdatesRequest getUpdatesRequest = (GetUpdatesRequest) getRequest();
 
-        for (RoomInfo roomInfo: getUpdatesRequest.getRoomInfoList()) {
-            RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(roomInfo.getRoomSecret());
+        if (getUpdatesRequest.getRoomInfoList().size() == 0) {
+            RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(getUpdatesRequest.getRoomSecret());
 
-            for (Update update : roomUpdatesPool.getUpdatesAfter(roomInfo.getFromUpdateId())) {
+            for (Update update : roomUpdatesPool.getUpdatesAfter(getUpdatesRequest.getFromUpdateId())) {
                 getClientHandlerContract().sendUpdate(update);
+            }
+        } else {
+
+            for (RoomInfo roomInfo: getUpdatesRequest.getRoomInfoList()) {
+                RoomUpdatesPool roomUpdatesPool = getMasterSocketContract().getUpdatesPool(roomInfo.getRoomSecret());
+
+                for (Update update : roomUpdatesPool.getUpdatesAfter(roomInfo.getFromUpdateId())) {
+                    getClientHandlerContract().sendUpdate(update);
+                }
             }
         }
 
