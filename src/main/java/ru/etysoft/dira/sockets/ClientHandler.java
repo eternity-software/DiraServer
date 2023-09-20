@@ -26,12 +26,18 @@ public class ClientHandler implements ClientHandlerContract {
     @Override
     public void sendUpdate(Update update) {
         Gson gson = new Gson();
+        if(!clientConnection.isOpen()) return;
         clientConnection.send(gson.toJson(update));
     }
 
     @Override
     public String getAddress() {
         return clientConnection.getRemoteSocketAddress().toString();
+    }
+
+    @Override
+    public boolean isOpen() {
+        return clientConnection.isOpen();
     }
 
 

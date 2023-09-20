@@ -26,6 +26,11 @@ public class RoomUpdatesPool {
             else if (!masterSocketContract.hasClient(clientHandlerContract.getAddress())) {
                 connectedClients.remove(clientHandlerContract);
             }
+            else if(!clientHandlerContract.isOpen())
+            {
+                connectedClients.remove(clientHandlerContract);
+                masterSocketContract.unregisterClient(clientHandlerContract);
+            }
         }
         return new ArrayList<>(connectedClients);
     }

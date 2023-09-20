@@ -10,5 +10,6 @@ public interface ClientHandlerContract {
     void sendUpdate(Update update);
 
     String getAddress();
+    boolean isOpen();
 
 }

@@ -4,7 +4,7 @@ public interface MasterSocketContract {
 
     void registerClient(ClientHandler clientHandler);
 
-    void unregisterClient(ClientHandler clientHandler);
+    void unregisterClient(ClientHandlerContract clientHandler);
 
     boolean hasClient(String address);
 

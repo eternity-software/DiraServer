@@ -145,7 +145,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
     }
 
     @Override
-    public void unregisterClient(ClientHandler clientHandler) {
+    public void unregisterClient(ClientHandlerContract clientHandler) {
         unregisterClient(clientHandler.getAddress());
     }
 
