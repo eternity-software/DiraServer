@@ -22,7 +22,7 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
 
     public static final String TAG = "MasterDiraSocket";
 
-    public static final List<String> SUPPORTED_APIS = List.of("0.0.3");
+    public static final List<String> SUPPORTED_APIS = List.of("0.0.4");
 
     private final HashMap<String, ClientHandlerContract> clients = new HashMap<>();
     private final HashMap<String, RoomUpdatesPool> updates = new HashMap<>();

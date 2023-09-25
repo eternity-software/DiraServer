@@ -2,9 +2,10 @@ package ru.etysoft.dira.updates;
 
 public class Update {
 
+    public static final int DEFAULT_UPDATE_EXPIRE_SEC = 8 * 60 * 60;
     private long originRequestId = -1;
     private long updateId = 0;
-    private long updateExpireSec = 8 * 60 * 60;
+    private long updateExpireSec = DEFAULT_UPDATE_EXPIRE_SEC;
     private final long updateCreatedTime;
     private String roomSecret;
     private final UpdateType updateType;

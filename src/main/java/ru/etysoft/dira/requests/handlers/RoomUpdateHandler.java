@@ -16,6 +16,9 @@ public class RoomUpdateHandler extends RequestHandler {
         RoomUpdateRequest roomUpdateRequest = (RoomUpdateRequest) getRequest();
 
         getMasterSocketContract().getUpdatesPool(roomUpdateRequest.getRoomSecret()).registerUpdate(
-                new RoomUpdate(roomUpdateRequest.getBase64Picture(), roomUpdateRequest.getName()).setRoomSecret(roomUpdateRequest.getRoomSecret()));
+                new RoomUpdate(roomUpdateRequest.getBase64Picture(),
+                        roomUpdateRequest.getName(),
+                        roomUpdateRequest.getUpdateExpireSec())
+                        .setRoomSecret(roomUpdateRequest.getRoomSecret()));
     }
 }
