@@ -13,6 +13,7 @@ public class Message {
     private String authorNickname;
     private long time;
     private List<Attachment> attachments = new ArrayList<>();
+    private String repliedMessageId;
     private long lastTimeAuthorUpdated;
     private long lastTimeEncryptionKeyUpdated;
 
@@ -80,5 +81,13 @@ public class Message {
 
     public void setAuthorNickname(String authorNickname) {
         this.authorNickname = authorNickname;
+    }
+
+    public String getRepliedMessageId() {
+        return repliedMessageId;
+    }
+
+    public void setRepliedMessageId(String repliedMessageId) {
+        this.repliedMessageId = repliedMessageId;
     }
 }
