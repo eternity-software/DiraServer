@@ -9,6 +9,16 @@ public class Attachment {
     private long size;
     private AttachmentType attachmentType;
 
+    private String imagePreview;
+
+    public String getImagePreview() {
+        return imagePreview;
+    }
+
+    public void setImagePreview(String imagePreview) {
+        this.imagePreview = imagePreview;
+    }
+
     private int width = -1;
 
     private int height = -1;
