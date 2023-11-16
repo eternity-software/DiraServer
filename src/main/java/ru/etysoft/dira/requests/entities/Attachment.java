@@ -5,11 +5,21 @@ public class Attachment {
     private String fileUrl;
     private long fileCreatedTime;
     private String fileName;
-    private String realFileName = "";
+    private String displayFileName = "";
     private long size;
 
     private boolean isListened = false;
     private AttachmentType attachmentType;
+
+    private String imagePreview;
+
+    public String getImagePreview() {
+        return imagePreview;
+    }
+
+    public void setImagePreview(String imagePreview) {
+        this.imagePreview = imagePreview;
+    }
 
     private int width = -1;
 
@@ -39,12 +49,12 @@ public class Attachment {
         this.fileName = fileName;
     }
 
-    public String getRealFileName() {
-        return realFileName;
+    public String getDisplayFileName() {
+        return displayFileName;
     }
 
-    public void setRealFileName(String realFileName) {
-        this.realFileName = realFileName;
+    public void setDisplayFileName(String displayFileName) {
+        this.displayFileName = displayFileName;
     }
 
     public long getSize() {
