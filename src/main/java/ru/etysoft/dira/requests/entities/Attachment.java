@@ -7,6 +7,8 @@ public class Attachment {
     private String fileName;
     private String realFileName = "";
     private long size;
+
+    private boolean isListened = false;
     private AttachmentType attachmentType;
 
     private int width = -1;
@@ -75,5 +77,13 @@ public class Attachment {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public boolean isListened() {
+        return isListened;
+    }
+
+    public void setListened(boolean listened) {
+        isListened = listened;
     }
 }

@@ -101,6 +101,9 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
         } else if (request.getRequestType() == RequestType.USER_STATUS_REQUEST) {
             SendUserStatusRequest userStatusRequest = gson.fromJson(rawMessage, SendUserStatusRequest.class);
             new UserStatusHandler(userStatusRequest, getClient(webSocket), this).process();
+        } else if (request.getRequestType() == RequestType.ATTACHMENT_LISTENED_REQUEST) {
+            AttachmentListenedRequest listenedRequest = gson.fromJson(rawMessage, AttachmentListenedRequest.class);
+            new AttachmentListenedHandler(listenedRequest, getClient(webSocket), this).process();
         }
 
     }
