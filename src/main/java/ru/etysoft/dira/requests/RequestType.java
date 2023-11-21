@@ -31,12 +31,14 @@ public enum RequestType {
     SEND_INTERMEDIATE_KEY,
     @SerializedName("13")
     SUBMIT_KEY,
-
     @SerializedName("14")
     MESSAGE_READ_REQUEST,
-
     @SerializedName("15")
     USER_STATUS_REQUEST,
     @SerializedName("16")
-    ATTACHMENT_LISTENED_REQUEST
+    ATTACHMENT_LISTENED_REQUEST,
+    @SerializedName("17")
+    PINNED_MESSAGE_ADDED_REQUEST,
+    @SerializedName("18")
+    PINNED_MESSAGE_REMOVED_REQUEST
 }

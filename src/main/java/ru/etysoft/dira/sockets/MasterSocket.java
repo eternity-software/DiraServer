@@ -104,6 +104,12 @@ public class MasterSocket extends WebSocketServer implements MasterSocketContrac
         } else if (request.getRequestType() == RequestType.ATTACHMENT_LISTENED_REQUEST) {
             AttachmentListenedRequest listenedRequest = gson.fromJson(rawMessage, AttachmentListenedRequest.class);
             new AttachmentListenedHandler(listenedRequest, getClient(webSocket), this).process();
+        } else if (request.getRequestType() == RequestType.PINNED_MESSAGE_ADDED_REQUEST) {
+            PinnedMessageAddedRequest pinnedRequest = gson.fromJson(rawMessage, PinnedMessageAddedRequest.class);
+            new PinnedMessageAddedHandler(pinnedRequest, getClient(webSocket), this).process();
+        } else if (request.getRequestType() == RequestType.PINNED_MESSAGE_REMOVED_REQUEST) {
+            PinnedMessageRemovedRequest pinnedRequest = gson.fromJson(rawMessage, PinnedMessageRemovedRequest.class);
+            new PinnedMessageRemovedHandler(pinnedRequest, getClient(webSocket), this).process();
         }
 
     }
