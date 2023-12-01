@@ -4,6 +4,7 @@ import ru.etysoft.dira.requests.CreateInviteRequest;
 import ru.etysoft.dira.requests.JoinRoomRequest;
 import ru.etysoft.dira.requests.Request;
 import ru.etysoft.dira.requests.entities.InviteRoom;
+import ru.etysoft.dira.requests.entities.RoomType;
 import ru.etysoft.dira.sockets.ClientHandlerContract;
 import ru.etysoft.dira.sockets.MasterSocketContract;
 import ru.etysoft.dira.updates.NewInvitationUpdate;
@@ -25,8 +26,14 @@ public class InviteHandler extends RequestHandler {
     public void process() {
 
         if (getRequest() instanceof JoinRoomRequest) {
-            if (invitations.containsKey(((JoinRoomRequest) getRequest()).getInvitationCode())) {
-                InviteRoom inviteRoom = invitations.get(((JoinRoomRequest) getRequest()).getInvitationCode());
+            String invitationCode = ((JoinRoomRequest) getRequest()).getInvitationCode();
+            if (invitations.containsKey(invitationCode)) {
+                InviteRoom inviteRoom = invitations.get(invitationCode);
+
+                // remove from invitations if hasSingleUsage
+                if (inviteRoom.getRoomType() == RoomType.PRIVATE) {
+                    invitations.remove(invitationCode);
+                }
 
                 NewRoomUpdate newRoomUpdate = new NewRoomUpdate(inviteRoom);
                 newRoomUpdate.setOriginRequestId(getRequestId());
@@ -38,7 +45,7 @@ public class InviteHandler extends RequestHandler {
             CreateInviteRequest createInviteRequest = (CreateInviteRequest) getRequest();
 
             InviteRoom inviteRoom = new InviteRoom(createInviteRequest.getRoomName(), createInviteRequest.getRoomSecret(),
-                    createInviteRequest.getBase64pic(), createInviteRequest.getMemberList());
+                    createInviteRequest.getBase64pic(), createInviteRequest.getMemberList(), createInviteRequest.getRoomType());
 
             String invitationCode = KeyGenerator.generateString(new SecureRandom(), 16);
 
