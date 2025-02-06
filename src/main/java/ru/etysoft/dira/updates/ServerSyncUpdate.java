@@ -10,7 +10,7 @@ public class ServerSyncUpdate extends Update {
     private List<String> supportedApis = MasterSocket.SUPPORTED_APIS;
     private long timeServerStart = DiraServer.timeSeverStartup;
 
-    private String fileServerUrl = "http://diraapp.com:4444";
+    private String fileServerUrl = "https://files.diranetwork.com";
 
     public ServerSyncUpdate() {
         super(0, UpdateType.SERVER_SYNC);

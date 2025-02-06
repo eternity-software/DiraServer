@@ -14,7 +14,7 @@ public class DiraServer {
     }
 
     private static void startMasterSocket() {
-        String host = "164.132.138.80";
+        String host = "localhost";
         int port = 8888;
 
         MasterSocket server = new MasterSocket(new InetSocketAddress(host, port));
